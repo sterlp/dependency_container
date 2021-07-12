@@ -1,4 +1,4 @@
-# dependency_container
+# dependency container
 
 A simple flutter dependency container which is more or less a map and brings support
 for factory methods and lazy building of services.
