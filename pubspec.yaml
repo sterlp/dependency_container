@@ -1,5 +1,5 @@
 name: dependency_container
-description: A simple flutter dependency container.
+description: A simple flutter dependency container which is based on a Map, providing support for factories.
 version: 0.1.1
 homepage: https://github.com/sterlp/dependency_container
 
@@ -8,3 +8,4 @@ environment:
 
 dev_dependencies:
   test: ^1.17.9
+  lint: ^1.5.3

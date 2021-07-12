@@ -24,16 +24,16 @@ class AppContainer with Closeable {
 
   /// Get the bean registered with the given type - will call any factory as needed.
   T get<T>() {
-    var result = _beans[T];
+    var result = _beans[T] as T;
     if (result == null) {
-      var factory = _beanFactories[T];
+      final factory = _beanFactories[T];
       assert(() {
         if (factory == null) {
           throw StateError('No Bean nor Factory of type ${T.toString()} is registered.');
         }
         return true;
       }());
-      result = factory!(this);
+      result = factory!(this) as T;
       _beans[T] = result;
     }
     return result;
