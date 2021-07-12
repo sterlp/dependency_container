@@ -3,7 +3,7 @@
 A simple flutter dependency container which is more or less a map and brings support
 for factory methods and lazy building of services.
 
-# Main goals
+## Main goals
 
 - be simple
 - support for easy testing and mocking
