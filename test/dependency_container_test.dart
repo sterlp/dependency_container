@@ -23,8 +23,8 @@ void main() {
   });
 
   test('Test get beans', () {
-    var bean = SimpleBean();
-    var closeableBean = CloseableBean();
+    final bean = SimpleBean();
+    final closeableBean = CloseableBean();
     subject.add(bean).add(closeableBean);
     expect(subject.get<SimpleBean>(), bean);
     expect(subject.get<CloseableBean>(), closeableBean);
@@ -36,8 +36,8 @@ void main() {
   });
 
   test('Test close support', () {
-    var bean = SimpleBean();
-    var closeableBean = CloseableBean();
+    final bean = SimpleBean();
+    final closeableBean = CloseableBean();
     subject.add(bean).add(closeableBean);
     subject.addFactory((container) => CloseableBean);
     expect(subject.size, 3);

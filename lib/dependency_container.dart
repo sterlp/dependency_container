@@ -24,7 +24,7 @@ class AppContainer with Closeable {
 
   /// Get the bean registered with the given type - will call any factory as needed.
   T get<T>() {
-    var result = _beans[T] as T;
+    var result = _beans[T];
     if (result == null) {
       final factory = _beanFactories[T];
       assert(() {
@@ -36,7 +36,7 @@ class AppContainer with Closeable {
       result = factory!(this) as T;
       _beans[T] = result;
     }
-    return result;
+    return result as T;
   }
 
   AppContainer add<T>(T bean) {
