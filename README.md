@@ -1,3 +1,6 @@
+[![Dart](https://github.com/sterlp/dependency_container/actions/workflows/dart.yml/badge.svg)](https://github.com/sterlp/dependency_container/actions/workflows/dart.yml)
+[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+
 # dependency container
 
 A simple flutter dependency container which is more or less a map and brings support
