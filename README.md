@@ -1,8 +1,24 @@
 # dependency_container
 
-A simple flutter dependency container.
+A simple flutter dependency container which is more or less a map and brings support
+for factory methods and lazy building of services.
+
+# Main goals
+
+- be simple
+- support for easy testing and mocking
 
 ## Getting Started
+
+## Flutter InheritedWidget 
+Share app container deeper in the widget tree?
+
+https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html
+
+## Example apps
+
+https://github.com/sterlp/solvis-app/tree/master/solvis_v2_app
+https://github.com/sterlp/daily-challenge
 
 ### Async app_config.dart to init the AppContainer
 ```dart
