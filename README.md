@@ -4,11 +4,69 @@ A simple flutter dependency container.
 
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+### Async app_config.dart to init the AppContainer
+```dart
+/// optional parameters for testing
+/// enables the re-usage of this function for test and mocking
+/// of the infrastructure dependencies
+Future<AppContainer> buildContext([Future<SharedPreferences>?  pref]) async {
+  pref ??= SharedPreferences.getInstance();
+  final f = await pref;
+  return AppContainer()
+      .add(f)
+      .add(SolvisSettingsDao(f))
+      .addFactory((container) => SolvisClient.fromSettings(container.get<SolvisSettingsDao>()));
+}
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Async init in the main.dart
+```dart
+class MyHomePage extends StatefulWidget {
+  /// Enable setting of the container for testing
+  MyHomePage({Key? key, required this.title,
+      Future<AppContainer>? container}) :
+        _container = container ?? buildContext(),
+        super(key: key);
+
+  final String title;
+  final Future<AppContainer> _container;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void dispose() {
+    // dispose all beans
+    widget._container.then((value) => value.close());
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<AppContainer>(
+      future: widget._container,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          // your main screen
+          return _buildMain(snapshot.requireData);
+        } else {
+          // your splash screen
+          return Scaffold(
+            appBar: AppBar(title: Text(widget.title)),
+            body: const Center(child: CircularProgressIndicator())
+          );
+        }
+      });
+  }
+
+  Widget _buildMain(AppContainer container) {
+    final _solvisClient = container.get<SolvisClient>();
+    return Scaffold(
+        // your code
+      );
+    }
+}
+```
