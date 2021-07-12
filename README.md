@@ -14,8 +14,8 @@ Future<AppContainer> buildContext([Future<SharedPreferences>?  pref]) async {
   final f = await pref;
   return AppContainer()
       .add(f)
-      .add(SolvisSettingsDao(f))
-      .addFactory((container) => SolvisClient.fromSettings(container.get<SolvisSettingsDao>()));
+      .add(YourPrefService(f))
+      .addFactory((container) => YourOtherService(container.get<YourPrefService>()));
 }
 ```
 
@@ -63,7 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildMain(AppContainer container) {
-    final _solvisClient = container.get<SolvisClient>();
+    final yourOtherService = container.get<YourOtherService>();
+    final yourPrefService = container.get<YourPrefService>();
     return Scaffold(
         // your code
       );
