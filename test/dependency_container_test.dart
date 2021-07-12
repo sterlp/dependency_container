@@ -42,15 +42,16 @@ void main() {
   });
 
   test('Test factory support, lazy bean initialization', () {
-    subject.addFactory((_) => SimpleBean()).add(CloseableBean());
+    subject.addFactory((_) => SimpleBean())
+        .addFactory((_) => "Hallo")
+      ;
     expect(subject.get<SimpleBean>(), isA<SimpleBean>());
+    expect(subject.get<String>(), "Hallo");
   });
 
   test('Test close support', () {
-    final bean = SimpleBean();
-    final closeableBean = CloseableBean();
     subject.add(bean).add(closeableBean);
-    subject.addFactory((container) => CloseableBean);
+    subject.addFactory((_) => CloseableBean());
     expect(subject.size, 3);
 
     subject.close();
