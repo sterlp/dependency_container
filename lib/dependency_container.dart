@@ -2,8 +2,8 @@ library dependency_container;
 
 /// Simple interface for a bean to mark a bean as close-able
 /// called on each bean if the container is closed.
-mixin Closeable {
-  Future<dynamic> close();
+mixin Closeable<T> {
+  Future<T> close();
 }
 
 typedef BeanFactory<T> = T Function(AppContainer container);
@@ -12,8 +12,8 @@ typedef BeanFactory<T> = T Function(AppContainer container);
 class AppContainer with Closeable {
 
   /// stores all [BeanFactory]s that get registered by Type
-  final _beanFactories = Map<Type, BeanFactory>();
-  final _beans = Map<Type, dynamic>();
+  final _beanFactories = <Type, BeanFactory>{};
+  final _beans = <Type, dynamic>{};
 
   /// The amount of beans and factories registered
   int get size => _beanFactories.length + _beans.length;
@@ -27,13 +27,10 @@ class AppContainer with Closeable {
     var result = _beans[T];
     if (result == null) {
       final factory = _beanFactories[T];
-      assert(() {
-        if (factory == null) {
-          throw StateError('No Bean nor Factory of type ${T.toString()} is registered.');
-        }
-        return true;
-      }());
-      result = factory!(this) as T;
+      if (factory == null) {
+        throw StateError('No Bean nor Factory of type ${T.toString()} is registered.');
+      }
+      result = factory(this) as T;
       _beans[T] = result;
     }
     return result as T;
@@ -44,6 +41,8 @@ class AppContainer with Closeable {
     return this;
   }
 
+  /// Use a factory to ensure the been is only initialized if requested.
+  /// Any factory is only called once, after that the bean is cached.
   AppContainer addFactory<T>(BeanFactory<T> beanFactory) {
     _beanFactories[T] = beanFactory;
     return this;

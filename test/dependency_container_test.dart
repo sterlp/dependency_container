@@ -1,7 +1,7 @@
 import 'package:dependency_container/dependency_container.dart';
 import 'package:test/test.dart';
 
-class CloseableBean with Closeable {
+class CloseableBean with Closeable<bool> {
   bool closed = false;
   @override
   Future<bool> close() {
@@ -17,20 +17,31 @@ class SimpleBean {
 }
 
 void main() {
-  AppContainer subject = AppContainer();
+  var subject = AppContainer();
+  var bean = SimpleBean();
+  var closeableBean = CloseableBean();
+
   setUp(() {
     subject = AppContainer();
+    bean = SimpleBean();
+    closeableBean = CloseableBean();
   });
 
   test('Test get beans', () {
-    final bean = SimpleBean();
-    final closeableBean = CloseableBean();
     subject.add(bean).add(closeableBean);
     expect(subject.get<SimpleBean>(), bean);
     expect(subject.get<CloseableBean>(), closeableBean);
   });
 
-  test('Test factory support', () {
+  test('Test get beans directly', () {
+    subject.add("String 1")
+           .add(bean);
+
+    expect(subject<String>(), "String 1");
+    expect(subject<SimpleBean>(), bean);
+  });
+
+  test('Test factory support, lazy bean initialization', () {
     subject.addFactory((_) => SimpleBean()).add(CloseableBean());
     expect(subject.get<SimpleBean>(), isA<SimpleBean>());
   });
