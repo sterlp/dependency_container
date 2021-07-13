@@ -13,6 +13,8 @@ for factory methods and lazy building of services.
 
 ## Getting Started
 
+[Documentation](https://github.com/sterlp/dependency_container/wiki)
+
 ## Share app container deeper in the widget tree
 
 ###  Flutter InheritedWidget 
