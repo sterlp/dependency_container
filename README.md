@@ -13,10 +13,14 @@ for factory methods and lazy building of services.
 
 ## Getting Started
 
-## Flutter InheritedWidget 
-Share app container deeper in the widget tree?
+## Share app container deeper in the widget tree
+
+###  Flutter InheritedWidget 
 
 https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html
+
+### Flutter Provider
+https://pub.dev/packages/provider
 
 ## Example apps
 
