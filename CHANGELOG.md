@@ -1,3 +1,7 @@
+# 0.1.2
+
+* addressed lint warnings 
+
 # 0.1.1
 
 * extended the readme with examples
