@@ -10,7 +10,6 @@ typedef BeanFactory<T> = T Function(AppContainer container);
 
 /// Simple application container.
 class AppContainer with Closeable {
-
   /// stores all [BeanFactory]s that get registered by Type
   final _beanFactories = <Type, BeanFactory>{};
   final _beans = <Type, dynamic>{};
@@ -18,7 +17,7 @@ class AppContainer with Closeable {
   /// The amount of beans and factories registered
   int get size => _beanFactories.length + _beans.length;
 
-  T call<T> () {
+  T call<T>() {
     return get<T>();
   }
 
@@ -28,7 +27,8 @@ class AppContainer with Closeable {
     if (result == null) {
       final factory = _beanFactories[T];
       if (factory == null) {
-        throw StateError('No Bean nor Factory of type ${T.toString()} is registered.');
+        throw StateError(
+            'No Bean nor Factory of type ${T.toString()} is registered.');
       }
       result = factory(this) as T;
       _beans[T] = result;
@@ -50,7 +50,6 @@ class AppContainer with Closeable {
 
   @override
   Future<void> close() async {
-    print('app context is shutting down.');
     _beanFactories.clear();
     final toClean = _beans.values.toList();
     _beans.clear();
@@ -59,7 +58,7 @@ class AppContainer with Closeable {
       final value = toClean[i];
       try {
         if (value is Closeable) await value.close();
-      } catch(e) {
+      } catch (e) {
         print('failed to close service name: ${value.toString()}, error: $e');
       }
     }

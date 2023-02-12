@@ -1,3 +1,7 @@
+# 0.1.3
+
+* lib version update
+
 # 0.1.2
 
 * addressed lint warnings 

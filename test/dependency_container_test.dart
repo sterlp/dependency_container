@@ -9,6 +9,7 @@ class CloseableBean with Closeable<bool> {
     return Future.value(closed);
   }
 }
+
 class SimpleBean {
   bool closed = false;
   void close() {
@@ -34,17 +35,14 @@ void main() {
   });
 
   test('Test get beans directly', () {
-    subject.add("String 1")
-           .add(bean);
+    subject.add("String 1").add(bean);
 
     expect(subject<String>(), "String 1");
     expect(subject<SimpleBean>(), bean);
   });
 
   test('Test factory support, lazy bean initialization', () {
-    subject.addFactory((_) => SimpleBean())
-        .addFactory((_) => "Hallo")
-      ;
+    subject.addFactory((_) => SimpleBean()).addFactory((_) => "Hallo");
     expect(subject.get<SimpleBean>(), isA<SimpleBean>());
     expect(subject.get<String>(), "Hallo");
   });
