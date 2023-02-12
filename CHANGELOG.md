@@ -1,3 +1,7 @@
+# 0.1.4
+
+* addressed pub.dev score issues
+
 # 0.1.3
 
 * lib version update
