@@ -28,7 +28,7 @@ class AppContainer with Closeable {
       final factory = _beanFactories[T];
       if (factory == null) {
         throw StateError(
-            'No Bean nor Factory of type ${T.toString()} is registered.');
+            'No Bean nor Factory of type ${T.toString()} is registered.',);
       }
       result = factory(this) as T;
       _beans[T] = result;
