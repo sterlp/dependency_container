@@ -26,9 +26,11 @@ https://pub.dev/packages/provider
 
 ## Example apps
 
-https://github.com/sterlp/solvis-app/tree/master/solvis_v2_app
-https://github.com/sterlp/daily-challenge
+- https://github.com/sterlp/solvis-app/tree/master/solvis_v2_app
+- https://github.com/sterlp/daily-challenge
+- https://github.com/sterlp/time_tracker
 
+## Example
 ### Async app_config.dart to init the AppContainer
 ```dart
 /// optional parameters for testing
